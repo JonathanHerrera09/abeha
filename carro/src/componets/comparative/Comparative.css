@@ -1,0 +1,169 @@
+.splitview {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.panel {
+    position: absolute;
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.panel .content {
+    position: absolute;
+    width: 100vw;
+    min-height: 100vh;
+    color: #FFF;
+}
+.handle {
+    height: 100%;
+    position: absolute;
+    display: block;
+    background-color: rgb(255, 255, 255);
+    width: 5px;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+}
+.skewed .handle {
+    top: 50%;
+    transform: translateY(-50%);
+    height: 200%;
+    transform-origin: top;
+}
+.skewed .top {
+    margin-left: -1000px;
+    width: calc(50vw + 1000px);
+}
+.skewed .top .content {
+    margin-left: 1000px;
+}
+.textPosiInfo {
+    position: absolute;
+    top: 15%;
+    left: 50%; 
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+}
+.textInfo1{
+    margin-bottom: 50px;
+    border-right: 2px solid black;
+    padding: 30px;
+    color:black;
+}
+.textInfo11{
+    margin-bottom: 50px;
+    padding: 30px;
+    color:black;
+}
+.textInfo2 {
+    margin-bottom: 50px;
+    border-right: 2px solid white;
+    padding: 30px;
+}
+
+.textInfo22 {
+    margin-bottom: 50px;
+    padding: 30px;
+}
+.textinfofinal {
+    font-weight: bold;
+    font-size: 40px;
+}
+.cardDro1 {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.cardLoR {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+}
+.cardLL{
+    position: absolute;
+    top: 40px;
+    right: 10px;
+}
+.card {
+    width: 45%;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@media (max-width: 768px) {
+    .handle {
+        height: 100%;
+        position: absolute;
+        display: block;
+        background-color: rgb(255, 255, 255);
+        width: 5px;
+        top: 0;
+        left: 50%;
+        z-index: 3;
+    }
+    .panel {
+        width: 100%;
+    }
+    .panel img {
+        max-width: 100%;
+        height: auto;
+    }
+    .textPosiInfo {
+        top: 25%;
+        font-size: 10px;
+    }
+    .textinfofinal{
+        font-weight: bold;
+        font-size: 10px;
+    }
+    .textInfo1{
+        margin-bottom: 5px;
+        border-right: 2px solid black;
+        padding: 5px;
+        color:black;
+    }
+    .textInfo11{
+        margin-bottom: 5px;
+        padding: 5px;
+        color:black;
+    }
+    .textInfo2 {
+        margin-bottom: 5px;
+        border-right: 2px solid white;
+        padding: 5px;
+    }
+    
+    .textInfo22 {
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+    .cardDro1 {
+        width: 100%;
+    }
+    .card {
+        width: 80%;
+        max-width: 200px;
+    }
+    .cardLoR, .cardLL {
+        top: 20%;
+        width: 50%;
+        left: 0px;
+    }
+    .card {
+        top: 60%;
+    }
+}
+
