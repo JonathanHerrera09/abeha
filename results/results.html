@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    #output {
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 600px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    input[type="text"] {
+      display: block;
+      margin: 0 auto 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #4caf50;
+    }
+
+    #musicList {
+      margin: 20px auto;
+      max-width: 600px;
+    }
+
+    #musicList li {
+      list-style-type: none;
+      padding: 10px;
+      background-color: #eee;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+
+    #musicList li:nth-child(odd) {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Results</h1>
+  <div id="output"></div>
+  <button onclick="filterTopSellingAlbums()">1. Filtrar álbumes más vendidos</button>
+  <button onclick="calculateTotalSales()">2. Calcular total de ventas</button>
+  <button onclick="filterLongNames()">3. Filtrar nombres largos</button>
+  <button onclick="deleteArtists()">4. Borrar estos artistas (Adele, Prince y Justin Bieber)</button>
+  <button onclick="addRadioheadAlbum()">5. Agregar álbum de Radiohead</button>
+  <input type="text" id="searchInput" placeholder="Buscar por nombre de album">
+  <button onclick="search()">Buscar</button>
+
+  <ul id="musicList"></ul>
+
+  <script>
+    const musicData = [
+      { artist: 'Adele', name: '25', sales: 1731000 },
+      { artist: 'Drake', name: 'Views', sales: 1608000 },
+      { artist: 'Beyonce', name: 'Lemonade', sales: 1554000 },
+      { artist: 'Chris Stapleton', name: 'Traveller', sales: 1085000 },
+      { artist: 'Pentatonix', name: 'A Pentatonix Christmas', sales: 904000 },
+      { artist: 'Original Broadway Cast Recording', name: 'Hamilton: An American Musical', sales: 820000 },
+      { artist: 'Twenty One Pilots', name: 'Blurryface', sales: 738000 },
+      { artist: 'Prince', name: 'The Very Best of Prince', sales: 668000 },
+      { artist: 'Rihanna', name: 'Anti', sales: 603000 },
+      { artist: 'Justin Bieber', name: 'Purpose', sales: 554000 }
+    ];
+
+    window.onload = function() {
+      displayMusicList();
+    };
+
+    function filterTopSellingAlbums() {
+      const topSellingAlbums = musicData.filter(album => album.sales > 1000000);
+      displayResults(topSellingAlbums);
+    }
+
+    function calculateTotalSales() {
+      const totalAlbumSales = musicData.reduce((total, album) => total + album.sales, 0);
+      document.getElementById('output').innerHTML = `Total de copias vendidas: ${totalAlbumSales}<br>`;
+    }
+
+    function filterLongNames() {
+      const longNames = musicData.filter(album => album.name.length > 8);
+      displayResults(longNames);
+    }
+
+    function deleteArtists() {
+      deleteAlbum('Adele');
+      deleteAlbum('Prince');
+      deleteAlbum('Justin Bieber');
+      alert('Los artistas Adele, Prince y Justin Bieber han sido borrados.');
+      displayMusicList();
+    }
+
+    function addRadioheadAlbum() {
+      addAlbum('Radiohead', 'Ok Computer', 5000000);
+      alert('Se ha agregado el álbum de Radiohead.');
+      displayMusicList();
+    }
+
+    function addAlbum(artist, name, sales) {
+      musicData.push({ artist, name, sales });
+      displayResults([musicData[musicData.length - 1]]);
+      displayMusicList();
+    }
+
+    function deleteAlbum(artistName) {
+      const index = musicData.findIndex(album => album.artist === artistName);
+      if (index !== -1) {
+        musicData.splice(index, 1);
+      }
+    }
+
+    function search() {
+      const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+      const results = musicData.filter(album => album.name.toLowerCase().includes(searchTerm));
+      if (results.length === 0) {
+        alert('No se encontraron resultados para la búsqueda.');
+      }
+      displayResults(results);
+    }
+
+    function displayResults(results) {
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = '';
+      if (results.length === 0) {
+        outputDiv.innerHTML = 'No hay resultados para mostrar.';
+      } else {
+        results.forEach(album => {
+          outputDiv.innerHTML += `El álbum ${album.name} del artista ${album.artist} vendió aproximadamente ${album.sales} copias.<br>`;
+        });
+      }
+    }
+
+    function displayMusicList() {
+      const musicList = document.getElementById('musicList');
+      musicList.innerHTML = '';
+      musicData.forEach(album => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${album.artist} - ${album.name} (${album.sales} copias vendidas)`;
+        musicList.appendChild(listItem);
+      });
+    }
+  </script>
+</body>
+</html>
